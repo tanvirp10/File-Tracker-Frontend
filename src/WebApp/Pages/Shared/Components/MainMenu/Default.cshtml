@@ -1,0 +1,152 @@
+﻿@model MainMenuViewComponent.MenuParams
+@{
+    var iconsFile = Url.Content("~/images/app-icons.svg");
+}
+
+<header role="banner">
+    <nav id="main-nav" class="navbar nav-underline navbar-expand-sm bg-gradient border-bottom shadow-sm mb-3 d-print-none">
+        <div class="container">
+            @if (Model.IsStaffUser)
+            {
+                <a asp-page="/Staff/Index" title="Dashboard">
+                    <img src="~/images/epd-icon.svg" alt="Georgia EPD" class="img-logo pe-2" />
+                </a>
+                <a asp-page="/Staff/Index" title="Dashboard" class="navbar-brand me-2 d-inline d-sm-none">MY_APP_NAME</a>
+            }
+            else
+            {
+                <a asp-page="/Index" title="MY_APP_NAME">
+                    <img src="~/images/epd-icon.svg" alt="Georgia EPD" class="img-logo pe-2" />
+                </a>
+                <a class="navbar-brand nav-link me-2" asp-page="/Index" title="MY_APP_NAME">MY_APP</a>
+            }
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav-content"
+                    aria-controls="main-nav-content" aria-haspopup="menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> <span class="align-middle menu-text">Menu</span>
+            </button>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex" id="main-nav-content">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (Model.IsStaffUser)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Staff/Index" title="Dashboard">Dashboard</a>
+                        </li>
+                    }
+                    @if (Model.IsActiveUser)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Staff/WorkEntries/Index" title="Work Entry Search">
+                                <span class="d-inline d-sm-none d-md-inline">Work Entry</span> Search
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+                <ul class="navbar-nav flex-grow-0">
+                    @if (Model.IsStaffUser)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Staff/WorkEntries/Add" title="Add New Work Entry">
+                                <svg class="bi">
+                                    <use href="/images/app-icons.svg#app-icon-plus-lg"></use>
+                                </svg>&nbsp;<span class="d-inline d-sm-none">Add&nbsp;</span>New <span class="d-inline d-sm-none d-lg-inline">Work Entry</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Model.IsActiveUser)
+                    {
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle" id="moreDropdownMenuLink" type="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="menu" aria-expanded="false" title="View menu of additional options">
+                                More
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Admin/Users/Index">App Users</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Admin/Maintenance/Index">Site Maintenance</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (Model.IsActiveUser)
+                    {
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle" id="accountDropdownMenuLink" type="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="menu" aria-expanded="false" title="View account menu">
+                                Account
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" asp-page="/Account/Index">Your profile</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form class="py-0 px-2" asp-page="/Account/Logout" method="post">
+                                        <button type="submit" class="btn btn-outline-danger d-block w-100 px-4 py-2">Sign out</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else if (!Model.IsLoginPage)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-body-secondary" asp-page="/Account/Login">Agency&nbsp;Login</a>
+                        </li>
+                    }
+                    <!-- Dropdown selector for color mode -->
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle" id="bd-theme" type="button"
+                                aria-haspopup="menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" title="Toggle theme">
+                            <svg class="bi me-1 theme-icon-active">
+                                <use href="@iconsFile#app-icon-circle-half"></use>
+                            </svg>
+                            <span class="ms-2 visually-hidden" id="bd-theme-text">Toggle theme</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light">
+                                    <svg class="bi me-2 opacity-50">
+                                        <use href="@iconsFile#app-icon-sun-fill"></use>
+                                    </svg>
+                                    Light
+                                    <svg class="bi ms-auto theme-checkmark d-none">
+                                        <use href="@iconsFile#app-icon-check2"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
+                                    <svg class="bi me-2 opacity-50">
+                                        <use href="@iconsFile#app-icon-moon-stars-fill"></use>
+                                    </svg>
+                                    Dark
+                                    <svg class="bi ms-auto theme-checkmark d-none">
+                                        <use href="@iconsFile#app-icon-check2"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto">
+                                    <svg class="bi me-2 opacity-50">
+                                        <use href="@iconsFile#app-icon-circle-half"></use>
+                                    </svg>
+                                    Auto
+                                    <svg class="bi ms-auto theme-checkmark d-none">
+                                        <use href="@iconsFile#app-icon-check2"></use>
+                                    </svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

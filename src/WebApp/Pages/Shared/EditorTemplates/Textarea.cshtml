@@ -1,0 +1,19 @@
+﻿@model string
+@{
+    var rows = (int?)ViewData["Rows"] ?? 2;
+    var mde = (bool?)ViewData["MDE"] ?? false;
+    var classMde = mde ? (string?)ViewData["ClassMDE"] ?? "EasyMDE" : "";
+}
+
+<div class="@(mde ? "" : "form-floating")">
+    @if (mde)
+    {
+        <label asp-for="@__model" class="form-label"></label>
+    }
+    <textarea asp-for="@__model" class="form-control markdown @classMde" rows="@rows.ToString()"></textarea>
+    @if (!mde)
+    {
+        <label asp-for="@__model" class="form-label"></label>
+    }
+    <span asp-validation-for="@__model" class="invalid-feedback"></span>
+</div>

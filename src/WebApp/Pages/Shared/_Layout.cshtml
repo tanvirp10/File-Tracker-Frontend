@@ -1,0 +1,75 @@
+@using MyApp.WebApp.Platform.PageModelHelpers
+@{
+    var displayMessage = TempData.GetDisplayMessage();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MY_APP</title>
+    <partial name="_FaviconPartial" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" 
+          integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <partial name="_RaygunScriptsPartial" />
+    <script src="~/js/color-modes.js"></script>
+    @await RenderSectionAsync("Styles", false)
+</head>
+
+<body id="top" class="d-flex flex-column vh-100">
+<a class="skip-nav shadow border border-2 rounded border-info bg-info-subtle text-info-emphasis d-print-none" href="#main-content">Skip to main content</a>
+<environment exclude="Production">
+    <div class="banner-test-site">Test Site</div>
+</environment>
+@await Component.InvokeAsync("MainMenu", Model)
+
+<main id="main-content" role="main" class="flex-grow-1">
+    <div class="container">
+        <partial name="_AlertPartial" for="@displayMessage" />
+        @RenderBody()
+    </div>
+</main>
+
+<footer class="footer pt-3">
+    <div class="bg-body-tertiary py-2 border-bottom d-print-none">
+        <div class="container">
+            <a href="#top" class="btn">
+                <svg class="bi">
+                    <use href="@Url.Content("~/images/app-icons.svg")#app-icon-arrow-bar-up"></use>
+                </svg> Return to top
+            </a>
+        </div>
+    </div>
+    <div class="bg-body-secondary pt-2 pb-3">
+        <div class="container">
+            <small>
+                MY_APP_NAME
+                <span class="d-print-none">
+                    | <a asp-page="/Support" class="text-decoration-hover link-offset-2">Support</a>
+                    | <a href="https://epd.georgia.gov/" target="_blank" rel="noopener" class="text-decoration-hover link-offset-2">Environmental Protection Division</a>
+                </span>
+                <br />&copy; @DateTime.Now.Year.ToString() State of Georgia
+                <span class="d-print-none">
+                    | <a href="https://georgia.gov/accessibility" target="_blank" rel="noopener" class="text-decoration-hover link-offset-2">Accessibility</a>
+                    | <a href="https://gadnr.org/ada" target="_blank" rel="noopener" class="text-decoration-hover link-offset-2">DNR Accessibility Notice</a>
+                    | <a href="https://georgia.gov/privacysecurity" target="_blank" rel="noopener" class="text-decoration-hover link-offset-2">Privacy/Security</a>
+                </span>
+            </small>
+        </div>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="></script>
+<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"
+        integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg=="></script>
+@if (!ViewData.ContainsKey("NoAnchors"))
+{
+    <script src="~/lib/anchor-js/anchor.min.js" 
+            integrity="sha512-byAcNWVEzFfu+tZItctr+WIMUJvpzT2kokkqcBq+VsrM3OrC5Aj9E2gh+hHpU0XNA3wDmX4sDbV5/nkhvTrj4w=="></script>
+    <script src="~/js/anchorInit.js"></script>
+}
+@await RenderSectionAsync("Scripts", false)
+</body>
+</html>

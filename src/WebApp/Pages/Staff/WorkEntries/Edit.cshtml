@@ -1,0 +1,54 @@
+﻿@page "{id:Guid?}"
+@using MyApp.WebApp.Pages.Shared.EditorTemplates
+@model EditModel
+@{
+    ViewData["Title"] = $"Edit WorkEntry ID {Model.Id.ToString()}";
+    ViewData["NoAnchors"] = "True";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="p-3 border border-primary-subtle rounded-3 bg-light-subtle mb-3">
+    <form method="post">
+        <div asp-validation-summary="All" class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi me-2" role="img" aria-label="Danger:">
+                <use href="@Url.Content("~/images/app-icons.svg")#app-icon-exclamation-triangle-fill"></use>
+            </svg>
+        </div>
+
+        <h2>Details</h2>
+        <div class="row">
+            <div class="col-md">
+                <div class="mb-3">
+                    @Html.EditorFor(model => model.Item.Notes, EditorTemplate.Textarea,
+                        additionalViewData: new { Rows = 5, MDE = true })
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="mb-3">
+                    @Html.EditorFor(model => model.Item.EntryTypeId, EditorTemplate.Select,
+                        additionalViewData: new { Items = Model.EntryTypesSelectList, Placeholder = string.Empty })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mt-3 mb-1">
+            <button type="submit" class="btn btn-primary col-6 col-sm-4 col-lg-3 me-2">Save Changes</button>
+            <a asp-page="Details" asp-route-id="@Model.Id.ToString()" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+        <div class="text-danger-emphasis mt-3">* denotes a required field</div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/easymde/dist/easymde.min.js"></script>
+    <script src="~/lib/dompurify/purify.min.js"></script>
+    <script src="~/js/textarea-to-MDE.js" defer></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/easymde/dist/easymde.min.css" />
+    <link rel="stylesheet" href="~/css/easymde.darkmode.css" />
+}

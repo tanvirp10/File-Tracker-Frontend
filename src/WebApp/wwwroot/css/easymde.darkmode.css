@@ -1,0 +1,35 @@
+/*Dark Mode color changes*/
+
+[data-bs-theme="dark"] .CodeMirror {
+  background-color: #212529 !important;
+}
+
+[data-bs-theme="dark"] .CodeMirror-placeholder {
+  color: #f1f1f1 !important;
+}
+
+[data-bs-theme="dark"] .CodeMirror-line {
+  color: white !important;
+}
+[data-bs-theme="dark"] .CodeMirror-fullscreen.CodeMirror {
+  background-color: #212529 !important;
+}
+[data-bs-theme="dark"] .editor-toolbar button:hover {
+  background: none !important;
+}
+
+[data-bs-theme="dark"] .editor-toolbar.fullscreen {
+  background-color: #343a40 !important;
+}
+
+[data-bs-theme="dark"] .editor-toolbar button.active {
+  background-color: #ffffff20 !important;
+}
+
+[data-bs-theme="dark"] .CodeMirror-cursor {
+  border-left: 2px solid white;
+}
+
+[data-bs-theme="dark"] .editor-preview {
+  background-color: #2d3338 !important;
+}

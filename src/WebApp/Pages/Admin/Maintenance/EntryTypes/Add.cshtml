@@ -1,0 +1,37 @@
+﻿@page
+@model AddModel
+@{
+    ViewData["Title"] = $"Add a new {AddModel.ThisOption.SingularName}";
+    ViewData["NoAnchors"] = "True";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="p-3 border rounded-3 bg-light-subtle">
+    <form method="post">
+        <div asp-validation-summary="All" class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi me-2" role="img" aria-label="Danger:">
+                <use href="@Url.Content("~/images/app-icons.svg")#app-icon-exclamation-triangle-fill"></use>
+            </svg>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <div class="form-floating">
+                    <input asp-for="Item.Name" class="form-control" />
+                    <label asp-for="Item.Name" class="form-label"></label>
+                    <span asp-validation-for="Item.Name" class="invalid-feedback"></span>
+                </div>
+            </div>
+        </div>
+        <div class="mb-1">
+            <button id="SubmitButton" type="submit" class="btn btn-primary me-2">Add New @AddModel.ThisOption.SingularName</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+        <div class="text-danger-emphasis mt-3">* denotes a required field</div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

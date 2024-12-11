@@ -1,0 +1,44 @@
+﻿@page "{id:Guid?}"
+@model EditModel
+@{
+    ViewData["Title"] = $"Edit {EditModel.ThisOption.SingularName}";
+    ViewData["NoAnchors"] = "True";
+}
+
+<h1>Edit @EditModel.ThisOption.SingularName</h1>
+<hr />
+<partial name="Admin/Maintenance/_MaintenanceItemEditWarning" model="@EditModel.ThisOption" />
+
+<h2>@Model.OriginalName</h2>
+
+<div class="p-3 border rounded-3 bg-light-subtle">
+    <form method="post">
+        <div asp-validation-summary="All" class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi me-2" role="img" aria-label="Danger:">
+                <use href="@Url.Content("~/images/app-icons.svg")#app-icon-exclamation-triangle-fill"></use>
+            </svg>
+        </div>
+        <div class="col-md-8 mb-3">
+            <div class="form-floating">
+                <input asp-for="Item.Name" class="form-control" />
+                <label asp-for="Item.Name" class="form-label"></label>
+                <span asp-validation-for="Item.Name" class="invalid-feedback"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input asp-for="Item.Active" class="form-check-input" />
+            <label asp-for="Item.Active" class="form-check-label"></label>
+        </div>
+        <div class="mt-3 mb-1">
+            <input asp-for="OriginalName" type="hidden" />
+            <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+        <div class="text-danger-emphasis mt-3">* denotes a required field</div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
